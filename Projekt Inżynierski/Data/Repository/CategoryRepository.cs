@@ -14,7 +14,6 @@ namespace Projekt_Inżynierski.Data.Repository
         }
 
         
-
         public async Task<IReadOnlyList<Category>> GetCategoriesAsync()
         {
             return await _context.Categories.ToListAsync();

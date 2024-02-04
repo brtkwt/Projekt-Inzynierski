@@ -1,4 +1,5 @@
 ﻿using Projekt_Inżynierski.Entities;
+using Projekt_Inżynierski.Helpers;
 
 namespace Projekt_Inżynierski.Interfaces
 {

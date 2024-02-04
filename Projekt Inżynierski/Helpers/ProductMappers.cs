@@ -2,7 +2,7 @@ using Projekt_Inżynierski.Entities;
 using Projekt_Inżynierski.Entities.Dto;
 using Projekt_Inżynierski.Entities.Dtos;
 
-namespace Projekt_Inżynierski.Mappers
+namespace Projekt_Inżynierski.Helpers
 {
     public static class ProductMappers
     {

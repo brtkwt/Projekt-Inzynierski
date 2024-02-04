@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Projekt_Inżynierski.Entities;
 using Projekt_Inżynierski.Entities.Dtos;
+using Projekt_Inżynierski.Helpers;
 using Projekt_Inżynierski.Interfaces;
 
 namespace Projekt_Inżynierski.Data.Repository
@@ -20,14 +21,49 @@ namespace Projekt_Inżynierski.Data.Repository
             return await _context.Products.Include(p => p.Category).Include(p => p.Company).FirstOrDefaultAsync( x => x.Id == id);
         }
 
-        public async Task<IReadOnlyList<Product>> GetProductsAsync()
+        public async Task<IReadOnlyList<Product>> GetProductsAsync(QueryObject query)
         {
-            return await _context.Products.Include(p => p.Category).Include(p => p.Company).ToListAsync();
+            var products = _context.Products.Include(p => p.Category).Include(p => p.Company).AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(query.NameSearch))
+            {
+                products = products.Where(c => c.Name.Contains(query.NameSearch));
+            }
+
+            if (query.CategoryId.HasValue)
+            {
+                products = products.Where(p => p.CategoryId == query.CategoryId);
+            }
+
+            if (query.CompanyId.HasValue)
+            {
+                products = products.Where(p => p.CompanyId == query.CompanyId);
+            }
+
+            switch (query.SortBy)
+            {
+                case "priceasc":
+                    products = products.OrderBy(p => p.Price);
+                    break;
+                case "pricedesc":
+                    products = products.OrderByDescending(p => p.Price);
+                    break;
+                default:
+                    products = products.OrderBy(p => p.Name);
+                    break;
+            }
+
+            var skipNumber = query.PageSize * (query.PageNumber - 1);
+
+            return await products.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
 
-        public async Task<bool> ProductNameExistsAsync(string newProductName)
+        public async Task<bool> ProductNameExistsAsync(string newProductName, int id = 0)
         {
+            if (id != 0)
+                return await _context.Products.AnyAsync(c => c.Name == newProductName && c.Id != id);
             return await _context.Products.AnyAsync(c => c.Name == newProductName);
+
         }
 
         public async Task<Product> CreateProductAsync(Product newProduct)

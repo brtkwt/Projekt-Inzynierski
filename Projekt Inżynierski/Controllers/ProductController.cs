@@ -2,7 +2,8 @@
 using Projekt_Inżynierski.Entities;
 using Projekt_Inżynierski.Entities.Dtos;
 using Projekt_Inżynierski.Interfaces;
-using Projekt_Inżynierski.Mappers;
+using Projekt_Inżynierski.Helpers;
+
 
 namespace Projekt_Inżynierski.Controllers
 {
@@ -24,12 +25,12 @@ namespace Projekt_Inżynierski.Controllers
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IReadOnlyList<Product>))]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts([FromQuery] QueryObject query)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var products = await _productRepository.GetProductsAsync();
+            var products = await _productRepository.GetProductsAsync(query);
 
             var productsDtos = products.Select( s => s.ToResponseDto() );
 
@@ -89,7 +90,7 @@ namespace Projekt_Inżynierski.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if(await _productRepository.ProductNameExistsAsync(productRequestDto.Name))
+            if(await _productRepository.ProductNameExistsAsync(productRequestDto.Name, id))
             {
                 ModelState.AddModelError("productRequestDto.Name", "Product with this name already exists !");
                 return BadRequest(ModelState);
