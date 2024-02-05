@@ -3,6 +3,7 @@ using Projekt_Inżynierski.Entities;
 using Projekt_Inżynierski.Entities.Dtos;
 using Projekt_Inżynierski.Interfaces;
 using Projekt_Inżynierski.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Projekt_Inżynierski.Controllers
@@ -23,6 +24,7 @@ namespace Projekt_Inżynierski.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(200, Type = typeof(IReadOnlyList<Product>))]
         [ProducesResponseType(400)]
         public async Task<IActionResult> GetProducts([FromQuery] QueryObject query)
