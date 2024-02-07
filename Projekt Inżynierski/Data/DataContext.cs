@@ -24,6 +24,11 @@ namespace Projekt_Inżynierski.Data
                 .Property(p => p.Price)
                 .HasColumnType("decimal(18,2)");
 
+            modelBuilder.Entity<AppUser>(entity =>
+            {
+                entity.HasIndex(u => u.NormalizedEmail).IsUnique();
+            });
+
             List<IdentityRole> roles = new List<IdentityRole>
             {
                 new IdentityRole

@@ -85,3 +85,5 @@ C:\Users\bart\Desktop\Projekt Inżynierski\Projekt Inżynierski\bin\Debug\net7.0
 C:\Users\bart\Desktop\Projekt Inżynierski\Projekt Inżynierski\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\bart\Desktop\Projekt Inżynierski\Projekt Inżynierski\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\bart\Desktop\Projekt Inżynierski\Projekt Inżynierski\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+C:\Users\bart\Desktop\Projekt Inżynierski\Projekt Inżynierski\bin\Debug\net7.0\Pipelines.Sockets.Unofficial.dll
+C:\Users\bart\Desktop\Projekt Inżynierski\Projekt Inżynierski\bin\Debug\net7.0\StackExchange.Redis.dll

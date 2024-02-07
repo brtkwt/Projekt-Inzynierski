@@ -8,7 +8,7 @@ using Projekt_Inżynierski.Data;
 
 #nullable disable
 
-namespace ProjektInżynierski.Migrations
+namespace Projekt_Inżynierski.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -51,13 +51,13 @@ namespace ProjektInżynierski.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9676a52d-306f-458e-b21b-5c48184cc340",
+                            Id = "1417bbd7-9190-43f5-97e2-01cabb86280d",
                             Name = "Client",
                             NormalizedName = "CLIENT"
                         },
                         new
                         {
-                            Id = "4db2f14a-6754-4455-b20e-66b19e5987e7",
+                            Id = "465f0a67-91b9-4e57-9ddd-dfe064090dbd",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -188,6 +188,9 @@ namespace ProjektInżynierski.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("GivenName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -224,7 +227,9 @@ namespace ProjektInżynierski.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
+                        .IsUnique()
+                        .HasDatabaseName("EmailIndex")
+                        .HasFilter("[NormalizedEmail] IS NOT NULL");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
@@ -314,6 +319,47 @@ namespace ProjektInżynierski.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("Projekt_Inżynierski.Entities.ShippingAdress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Voivodeship")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
+
+                    b.ToTable("ShippingAdress");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -382,6 +428,22 @@ namespace ProjektInżynierski.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("Projekt_Inżynierski.Entities.ShippingAdress", b =>
+                {
+                    b.HasOne("Projekt_Inżynierski.Entities.AppUser", "AppUser")
+                        .WithOne("shippingAdress")
+                        .HasForeignKey("Projekt_Inżynierski.Entities.ShippingAdress", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("Projekt_Inżynierski.Entities.AppUser", b =>
+                {
+                    b.Navigation("shippingAdress");
                 });
 #pragma warning restore 612, 618
         }

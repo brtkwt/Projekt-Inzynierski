@@ -8,6 +8,7 @@ using Projekt_Inżynierski.Data.Repository;
 using Projekt_Inżynierski.Entities;
 using Projekt_Inżynierski.Interfaces;
 using Projekt_Inżynierski.Service;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +54,13 @@ builder.Services.AddDbContext<DataContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
+builder.Services.AddSingleton<IConnectionMultiplexer>(  c =>
+{
+    var option = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
+    return ConnectionMultiplexer.Connect(option);
+});
+
+
 builder.Services.AddIdentity<AppUser, IdentityRole>(options => 
 {
     options.Password.RequireDigit = true;
@@ -61,7 +69,8 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 10;
 })
-.AddEntityFrameworkStores<DataContext>();    // dodane
+.AddEntityFrameworkStores<DataContext>()
+.AddSignInManager<SignInManager<AppUser>>();    // dodane
 
 builder.Services.AddAuthentication(options => 
 {     
@@ -90,6 +99,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IProductRepository, ProductRepository>();    // dodane
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();  // dodane
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();    // dodane
+builder.Services.AddScoped<ICartRepository, CartRepository>();  // dodane przy cart
 builder.Services.AddScoped<ITokenService, TokenService>();  // dodane przy jwt
 
 var app = builder.Build();
