@@ -12,7 +12,7 @@ using Projekt_Inżynierski.Data;
 namespace Projekt_Inżynierski.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240207005533_PierwszaDuża")]
+    [Migration("20240208132631_PierwszaDuża")]
     partial class PierwszaDuża
     {
         /// <inheritdoc />
@@ -54,13 +54,13 @@ namespace Projekt_Inżynierski.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1417bbd7-9190-43f5-97e2-01cabb86280d",
+                            Id = "6fdb1d9c-a2c6-4afd-81ee-4bc56016e0a7",
                             Name = "Client",
                             NormalizedName = "CLIENT"
                         },
                         new
                         {
-                            Id = "465f0a67-91b9-4e57-9ddd-dfe064090dbd",
+                            Id = "19528e75-59bc-4252-9758-4c0357433b8e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

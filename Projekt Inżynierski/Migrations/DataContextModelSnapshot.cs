@@ -51,13 +51,13 @@ namespace Projekt_Inżynierski.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1417bbd7-9190-43f5-97e2-01cabb86280d",
+                            Id = "47e35442-6b98-4d0b-b12a-3ff2c2839377",
                             Name = "Client",
                             NormalizedName = "CLIENT"
                         },
                         new
                         {
-                            Id = "465f0a67-91b9-4e57-9ddd-dfe064090dbd",
+                            Id = "615244f3-3665-43a9-a547-67fe525c6fde",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -357,7 +357,7 @@ namespace Projekt_Inżynierski.Migrations
                     b.HasIndex("AppUserId")
                         .IsUnique();
 
-                    b.ToTable("ShippingAdress");
+                    b.ToTable("ShippingAdresses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

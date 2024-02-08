@@ -247,8 +247,8 @@ namespace Projekt_Inżynierski.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1417bbd7-9190-43f5-97e2-01cabb86280d", null, "Client", "CLIENT" },
-                    { "465f0a67-91b9-4e57-9ddd-dfe064090dbd", null, "Admin", "ADMIN" }
+                    { "19528e75-59bc-4252-9758-4c0357433b8e", null, "Admin", "ADMIN" },
+                    { "6fdb1d9c-a2c6-4afd-81ee-4bc56016e0a7", null, "Client", "CLIENT" }
                 });
 
             migrationBuilder.CreateIndex(

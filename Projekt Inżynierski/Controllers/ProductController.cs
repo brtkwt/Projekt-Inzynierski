@@ -24,7 +24,6 @@ namespace Projekt_Inżynierski.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [ProducesResponseType(200, Type = typeof(IReadOnlyList<Product>))]
         [ProducesResponseType(400)]
         public async Task<IActionResult> GetProducts([FromQuery] QueryObject query)
