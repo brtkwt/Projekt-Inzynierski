@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Projekt_Inżynierski.Entities;
 using Projekt_Inżynierski.Interfaces;
 using StackExchange.Redis;
@@ -16,7 +12,6 @@ namespace Projekt_Inżynierski.Data.Repository
         public CartRepository(IConnectionMultiplexer connectionMultiplexer)
         {
             _dataBase = connectionMultiplexer.GetDatabase();
-            
         }
 
         public async Task<ClientCart> GetCartAsync(string cartId)

@@ -24,6 +24,11 @@ namespace Projekt_Inżynierski.Data.Repository
             return await _context.Categories.FindAsync(id);
         }
 
+        public async Task<bool> CategoryExistsAsync(int id)
+        {
+            return await _context.Categories.AnyAsync(c => c.Id == id);
+        }
+
         public async Task<bool> CategoryNameExistsAsync(string newCategoryName)
         {
             return await _context.Categories.AnyAsync(c => c.Name == newCategoryName);

@@ -7,7 +7,7 @@ namespace Projekt_Inżynierski.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public decimal Price { get; set; }
+        public decimal Cost { get; set; }
         public string Description { get; set; }
         public string ImagePath { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
@@ -18,7 +18,5 @@ namespace Projekt_Inżynierski.Entities
 
         public int CompanyId { get; set; }
         public Company Company { get; set; }
-
-
     }
 }

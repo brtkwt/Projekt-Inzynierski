@@ -23,6 +23,11 @@ namespace Projekt_Inżynierski.Data.Repository
         {
             return await _context.Companies.FindAsync(id);
         }
+        
+        public async Task<bool> CompanyExistsAsync(int id)
+        {
+            return await _context.Companies.AnyAsync(c => c.Id == id);
+        }
 
         public async Task<bool> CompanyNameExistsAsync(string newCompanyName)
         {

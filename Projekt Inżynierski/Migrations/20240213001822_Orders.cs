@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Projekt_Inżynierski.Migrations
 {
     /// <inheritdoc />
-    public partial class PierwszaDuża : Migration
+    public partial class Orders : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,6 +77,22 @@ namespace Projekt_Inżynierski.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShippingMethods",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShippingFee = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    EstimatedShippingTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShippingMethods", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -186,7 +202,7 @@ namespace Projekt_Inżynierski.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShippingAdress",
+                name: "ShippingAddresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -197,14 +213,15 @@ namespace Projekt_Inżynierski.Migrations
                     Voivodeship = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BuildingNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShippingAdress", x => x.Id);
+                    table.PrimaryKey("PK_ShippingAddresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ShippingAdress_AspNetUsers_AppUserId",
+                        name: "FK_ShippingAddresses_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -217,10 +234,10 @@ namespace Projekt_Inżynierski.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false)
@@ -242,13 +259,68 @@ namespace Projekt_Inżynierski.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClientEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderShippingAddress_FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderShippingAddress_LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderShippingAddress_Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderShippingAddress_Voivodeship = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderShippingAddress_City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderShippingAddress_Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderShippingAddress_BuildingNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderShippingAddress_ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShippingMethodId = table.Column<int>(type: "int", nullable: true),
+                    SumCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PayIntentId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_ShippingMethods_ShippingMethodId",
+                        column: x => x.ShippingMethodId,
+                        principalTable: "ShippingMethods",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductOrdered_ProductId = table.Column<int>(type: "int", nullable: true),
+                    ProductOrdered_ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductOrdered_ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ProductNumber = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "19528e75-59bc-4252-9758-4c0357433b8e", null, "Admin", "ADMIN" },
-                    { "6fdb1d9c-a2c6-4afd-81ee-4bc56016e0a7", null, "Client", "CLIENT" }
+                    { "4a824a44-e81d-452a-b722-32875b965b3f", null, "Client", "CLIENT" },
+                    { "f0512177-776f-4a54-bcbe-dc1cb8b7276c", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -305,6 +377,16 @@ namespace Projekt_Inżynierski.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_OrderId",
+                table: "OrderItems",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_ShippingMethodId",
+                table: "Orders",
+                column: "ShippingMethodId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
@@ -315,8 +397,8 @@ namespace Projekt_Inżynierski.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShippingAdress_AppUserId",
-                table: "ShippingAdress",
+                name: "IX_ShippingAddresses_AppUserId",
+                table: "ShippingAddresses",
                 column: "AppUserId",
                 unique: true);
         }
@@ -340,13 +422,19 @@ namespace Projekt_Inżynierski.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "OrderItems");
+
+            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "ShippingAdress");
+                name: "ShippingAddresses");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Categories");
@@ -356,6 +444,9 @@ namespace Projekt_Inżynierski.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "ShippingMethods");
         }
     }
 }

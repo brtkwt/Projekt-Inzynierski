@@ -7,6 +7,7 @@ namespace Projekt_Inżynierski.Interfaces
     {
         Task<Category> GetCategoryByIdAsync(int id);
         Task<IReadOnlyList<Category>> GetCategoriesAsync();
+        Task<bool> CategoryExistsAsync(int id);
         Task<bool> CategoryNameExistsAsync(string newCategoryName);
         Task<Category> CreateCategoryAsync(string newCategoryName);
         Task<Category> UpdateCategoryAsync(int id, string newCategoryName);

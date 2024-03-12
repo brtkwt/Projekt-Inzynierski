@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Projekt_Inżynierski.Entities;
-using Projekt_Inżynierski.Entities.Dtos;
 using Projekt_Inżynierski.Helpers;
 using Projekt_Inżynierski.Interfaces;
 
@@ -21,7 +20,7 @@ namespace Projekt_Inżynierski.Data.Repository
             return await _context.Products.Include(p => p.Category).Include(p => p.Company).FirstOrDefaultAsync( x => x.Id == id);
         }
 
-        public async Task<IReadOnlyList<Product>> GetProductsAsync(QueryObject query)
+        public async Task<IReadOnlyList<Product>> GetProductsAsync(ProductQueryObject query)
         {
             var products = _context.Products.Include(p => p.Category).Include(p => p.Company).AsQueryable();
 
@@ -42,11 +41,11 @@ namespace Projekt_Inżynierski.Data.Repository
 
             switch (query.SortBy)
             {
-                case "priceasc":
-                    products = products.OrderBy(p => p.Price);
+                case "costasc":
+                    products = products.OrderBy(p => p.Cost);
                     break;
-                case "pricedesc":
-                    products = products.OrderByDescending(p => p.Price);
+                case "costdesc":
+                    products = products.OrderByDescending(p => p.Cost);
                     break;
                 default:
                     products = products.OrderBy(p => p.Name);
@@ -74,23 +73,20 @@ namespace Projekt_Inżynierski.Data.Repository
             return newProduct;
         }
 
-        public async Task<Product> UpdateProductAsync(int id, CreateProductRequestDto productRequestDto, Category categoryDB, Company companyDB)
+        public async Task<Product> UpdateProductAsync(int id, Product updatedProduct)
         {
-            var existingProduct = await _context.Products.FindAsync(id);
+            var existingProduct = await _context.Products.Include(p => p.Category).Include(p => p.Company).FirstOrDefaultAsync(x => x.Id == id);
 
-            if(existingProduct == null)
-            {
-                return null;
-            }
+            existingProduct.Name = updatedProduct.Name;
+            existingProduct.Cost = updatedProduct.Cost;
+            existingProduct.Description = updatedProduct.Description;
+            existingProduct.ImagePath = updatedProduct.ImagePath;
+            existingProduct.CategoryId = updatedProduct.CategoryId;
+            existingProduct.CompanyId = updatedProduct.CompanyId;
+            existingProduct.Category = updatedProduct.Category;
+            existingProduct.Company = updatedProduct.Company;
 
-            existingProduct.Name = productRequestDto.Name;
-            existingProduct.Price = productRequestDto.Price;
-            existingProduct.Description = productRequestDto.Description;
-            existingProduct.ImagePath = productRequestDto.ImagePath;
-            existingProduct.CategoryId = productRequestDto.CategoryId;
-            existingProduct.CompanyId = productRequestDto.CompanyId;
-            existingProduct.Category = categoryDB;
-            existingProduct.Company = companyDB;
+            _context.Update(existingProduct);
 
             await _context.SaveChangesAsync();
 

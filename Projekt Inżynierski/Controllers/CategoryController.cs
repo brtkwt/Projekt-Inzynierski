@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Projekt_Inżynierski.Entities;
-using Projekt_Inżynierski.Helpers;
 using Projekt_Inżynierski.Interfaces;
 
 namespace Projekt_Inżynierski.Controllers
@@ -51,6 +51,7 @@ namespace Projekt_Inżynierski.Controllers
             return Ok(category);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateCategory([FromBody] string newCategoryName)
         {
@@ -67,6 +68,7 @@ namespace Projekt_Inżynierski.Controllers
             return Ok(newCategory);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] string newCategoryName)
         {
@@ -89,6 +91,7 @@ namespace Projekt_Inżynierski.Controllers
             return Ok(updatedCategory);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {

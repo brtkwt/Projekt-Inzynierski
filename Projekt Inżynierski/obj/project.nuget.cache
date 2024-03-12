@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "KqTuq8WlI5Odgspa8IKDQaTOWGGWIstMfOrjEqnZW9EdLCZ1FTojJxz4VwrqH+oiW9tS9PLeKY9j9jXwOe+o4g==",
+  "dgSpecHash": "mQJhW3/U2xsTg8SDJd/Zb0xfAwnjQJYwLUAv8lVPHWhTttPDTbxZ2fHI5Ubvix9lqtAj5wNLoLtsfp1YyGNlpg==",
   "success": true,
   "projectFilePath": "C:\\Users\\bart\\Desktop\\Projekt Inżynierski\\Projekt Inżynierski\\Projekt Inżynierski.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\bart\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\bart\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\bart\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\bart\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\bart\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
@@ -113,5 +115,12 @@
     "C:\\Users\\bart\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\bart\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\bart\\Desktop\\Projekt Inżynierski\\Projekt Inżynierski\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

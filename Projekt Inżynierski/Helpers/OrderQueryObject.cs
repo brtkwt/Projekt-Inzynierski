@@ -5,14 +5,11 @@ using System.Threading.Tasks;
 
 namespace Projekt_Inżynierski.Helpers
 {
-    public class QueryObject
+    public class OrderQueryObject
     {
-        public string NameSearch { get; set; }
-        public int? CategoryId { get; set; }
-        public int? CompanyId { get; set; }
-
+        public string EmailSearch { get; set; }
         public string SortBy { get; set; }
         public int PageNumber { get; set; } = 1;
-        public int PageSize { get; set; } = 9;
+        public int PageSize { get; set; } = 10;
     }
 }

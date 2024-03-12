@@ -12,8 +12,8 @@ using Projekt_Inżynierski.Data;
 namespace Projekt_Inżynierski.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240208132631_PierwszaDuża")]
-    partial class PierwszaDuża
+    [Migration("20240213001822_Orders")]
+    partial class Orders
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace Projekt_Inżynierski.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6fdb1d9c-a2c6-4afd-81ee-4bc56016e0a7",
+                            Id = "4a824a44-e81d-452a-b722-32875b965b3f",
                             Name = "Client",
                             NormalizedName = "CLIENT"
                         },
                         new
                         {
-                            Id = "19528e75-59bc-4252-9758-4c0357433b8e",
+                            Id = "f0512177-776f-4a54-bcbe-dc1cb8b7276c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -284,6 +284,89 @@ namespace Projekt_Inżynierski.Migrations
                     b.ToTable("Companies");
                 });
 
+            modelBuilder.Entity("Projekt_Inżynierski.Entities.Order.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClientEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PayIntentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ShippingMethodId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SumCost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShippingMethodId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Projekt_Inżynierski.Entities.Order.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("Projekt_Inżynierski.Entities.Order.ShippingMethod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EstimatedShippingTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ShippingFee")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShippingMethods");
+                });
+
             modelBuilder.Entity("Projekt_Inżynierski.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -298,20 +381,25 @@ namespace Projekt_Inżynierski.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ImagePath")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -322,7 +410,7 @@ namespace Projekt_Inżynierski.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Projekt_Inżynierski.Entities.ShippingAdress", b =>
+            modelBuilder.Entity("Projekt_Inżynierski.Entities.ShippingAddress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -333,6 +421,9 @@ namespace Projekt_Inżynierski.Migrations
                     b.Property<string>("AppUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BuildingNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -360,7 +451,7 @@ namespace Projekt_Inżynierski.Migrations
                     b.HasIndex("AppUserId")
                         .IsUnique();
 
-                    b.ToTable("ShippingAdress");
+                    b.ToTable("ShippingAddresses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -414,6 +505,87 @@ namespace Projekt_Inżynierski.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Projekt_Inżynierski.Entities.Order.Order", b =>
+                {
+                    b.HasOne("Projekt_Inżynierski.Entities.Order.ShippingMethod", "ShippingMethod")
+                        .WithMany()
+                        .HasForeignKey("ShippingMethodId");
+
+                    b.OwnsOne("Projekt_Inżynierski.Entities.Order.OrderShippingAddress", "OrderShippingAddress", b1 =>
+                        {
+                            b1.Property<int>("OrderId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("BuildingNumber")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("City")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Country")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FirstName")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("LastName")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Street")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Voivodeship")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("ZipCode")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
+                    b.Navigation("OrderShippingAddress")
+                        .IsRequired();
+
+                    b.Navigation("ShippingMethod");
+                });
+
+            modelBuilder.Entity("Projekt_Inżynierski.Entities.Order.OrderItem", b =>
+                {
+                    b.HasOne("Projekt_Inżynierski.Entities.Order.Order", null)
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.OwnsOne("Projekt_Inżynierski.Entities.Order.ProductOrdered", "ProductOrdered", b1 =>
+                        {
+                            b1.Property<int>("OrderItemId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("ImagePath")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<int>("ProductId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("ProductName")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("OrderItemId");
+
+                            b1.ToTable("OrderItems");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderItemId");
+                        });
+
+                    b.Navigation("ProductOrdered");
+                });
+
             modelBuilder.Entity("Projekt_Inżynierski.Entities.Product", b =>
                 {
                     b.HasOne("Projekt_Inżynierski.Entities.Category", "Category")
@@ -433,11 +605,11 @@ namespace Projekt_Inżynierski.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("Projekt_Inżynierski.Entities.ShippingAdress", b =>
+            modelBuilder.Entity("Projekt_Inżynierski.Entities.ShippingAddress", b =>
                 {
                     b.HasOne("Projekt_Inżynierski.Entities.AppUser", "AppUser")
-                        .WithOne("shippingAdress")
-                        .HasForeignKey("Projekt_Inżynierski.Entities.ShippingAdress", "AppUserId")
+                        .WithOne("ShippingAddress")
+                        .HasForeignKey("Projekt_Inżynierski.Entities.ShippingAddress", "AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -446,7 +618,12 @@ namespace Projekt_Inżynierski.Migrations
 
             modelBuilder.Entity("Projekt_Inżynierski.Entities.AppUser", b =>
                 {
-                    b.Navigation("shippingAdress");
+                    b.Navigation("ShippingAddress");
+                });
+
+            modelBuilder.Entity("Projekt_Inżynierski.Entities.Order.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

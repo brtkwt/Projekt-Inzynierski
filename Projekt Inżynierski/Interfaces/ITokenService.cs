@@ -8,6 +8,6 @@ namespace Projekt_Inżynierski.Interfaces
 {
     public interface ITokenService
     {
-        string CreateJWTToken(AppUser appUser);
+        string CreateJWTToken(AppUser appUser, string roles);
     }
 }

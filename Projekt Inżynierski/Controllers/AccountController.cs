@@ -1,8 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Projekt_Inżynierski.Dtos;
 using Projekt_Inżynierski.Entities;
-using Projekt_Inżynierski.Entities.Dtos;
 using Projekt_Inżynierski.Interfaces;
 
 namespace Projekt_Inżynierski.Controllers
@@ -14,12 +18,81 @@ namespace Projekt_Inżynierski.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly ITokenService _tokenService;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IMapper _mapper;
 
-        public AccountController( UserManager<AppUser> userManager, ITokenService tokenService, SignInManager<AppUser> signInManager)
+        public AccountController( UserManager<AppUser> userManager, ITokenService tokenService, SignInManager<AppUser> signInManager,
+         IMapper mapper)
         {
             _userManager = userManager;
             _tokenService = tokenService;
             _signInManager = signInManager;
+            _mapper = mapper;
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetCurrentlyLogedUser()
+        {
+            var emailAddress = User.FindFirstValue(ClaimTypes.Email);
+
+            var logedUser = await _userManager.FindByEmailAsync(emailAddress);
+
+            var userRoles = await _userManager.GetRolesAsync(logedUser);
+            string rolesString = string.Join(",", userRoles);
+
+            return Ok(
+                new UserToReturnDto
+                {
+                    Token = _tokenService.CreateJWTToken(logedUser, rolesString),
+                    GivenName = logedUser.GivenName,
+                    EmailAddress = logedUser.Email
+                }
+            );
+        }
+
+        [HttpGet("email-address-exists")]
+        public async Task<IActionResult> EmailAddressExistsChecker([EmailAddress] string emailAdress)
+        {
+            if( await _userManager.FindByEmailAsync(emailAdress) != null)
+            {
+                return Ok(true);
+            }
+            return Ok(false);
+        }
+
+        [Authorize]
+        [HttpGet("shipping-address")]
+        public async Task<IActionResult> GetShippingAddressForUser()
+        {
+            var emailAddress = User.FindFirstValue(ClaimTypes.Email);
+
+            var user = await _userManager.Users.Include(u => u.ShippingAddress).SingleOrDefaultAsync(e => e.Email == emailAddress);
+            
+            if(user.ShippingAddress != null)
+            {
+                var ShippingAddressDto = _mapper.Map<ShippingAddressDto>(user.ShippingAddress);
+                return Ok(ShippingAddressDto);
+            }
+            return BadRequest("Shipping adress empty !");
+        }
+
+        [Authorize]
+        [HttpPut("shipping-address")]
+        public async Task<IActionResult> UpdateShippingAddress(ShippingAddressDto shippingAddress)
+        {
+            var emailAddress = User.FindFirstValue(ClaimTypes.Email);
+
+            var user = await _userManager.Users.Include(u => u.ShippingAddress).SingleOrDefaultAsync(e => e.Email == emailAddress);
+
+            user.ShippingAddress = _mapper.Map<ShippingAddress>(shippingAddress);
+
+            var state = await _userManager.UpdateAsync(user);
+
+            if(state.Succeeded)
+            {
+                return Ok( _mapper.Map<ShippingAddressDto>(user.ShippingAddress) );
+            }
+            return BadRequest("Something went wrong !");
         }
 
         [HttpPost("login")]
@@ -28,7 +101,7 @@ namespace Projekt_Inżynierski.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var user = await _userManager.FindByEmailAsync(loginDto.EmailAdress);
+            var user = await _userManager.FindByEmailAsync(loginDto.EmailAddress);
 
             if(user == null)
                 return Unauthorized("Email adress not found or wrong password !");
@@ -38,12 +111,15 @@ namespace Projekt_Inżynierski.Controllers
             if(!result.Succeeded)
                 return Unauthorized("Email adress not found or wrong password !");
 
+            var userRoles = await _userManager.GetRolesAsync(user);
+            string rolesString = string.Join(",", userRoles);
+
             return Ok(
-                new NewUserToReturnDto
+                new UserToReturnDto
                 {
+                    Token = _tokenService.CreateJWTToken(user, rolesString),
                     GivenName = user.GivenName,
-                    EmailAdress = user.Email,
-                    Token = _tokenService.CreateJWTToken(user)
+                    EmailAddress = user.Email
                 }
             );
             
@@ -71,12 +147,13 @@ namespace Projekt_Inżynierski.Controllers
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "Client");
                     if (roleResult.Succeeded)
                     {
+                        
                         return Ok(
-                            new NewUserToReturnDto
+                            new UserToReturnDto
                             {
+                                Token = _tokenService.CreateJWTToken(appUser, "Client"),
                                 GivenName = appUser.GivenName,
-                                EmailAdress = appUser.Email,
-                                Token = _tokenService.CreateJWTToken(appUser)
+                                EmailAddress = appUser.Email
                             }
                         );
                     }

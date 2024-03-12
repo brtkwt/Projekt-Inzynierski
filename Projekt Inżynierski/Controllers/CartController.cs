@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Projekt_Inżynierski.Dtos;
 using Projekt_Inżynierski.Entities;
 using Projekt_Inżynierski.Interfaces;
 
@@ -13,11 +11,12 @@ namespace Projekt_Inżynierski.Controllers
     public class CartController : ControllerBase
     {
         private readonly ICartRepository _cartRepository;
+        private readonly IMapper _mapper;
 
-        public CartController(ICartRepository cartRepository)
+        public CartController(ICartRepository cartRepository, IMapper mapper)
         {
             _cartRepository = cartRepository;
-            
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -34,9 +33,9 @@ namespace Projekt_Inżynierski.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateCart(ClientCart newCart)
+        public async Task<IActionResult> UpdateCart(ClientCartDto newCartDto)
         {
-            var updatedCart = await _cartRepository.UpdateCartAsync(newCart);
+            var updatedCart = await _cartRepository.UpdateCartAsync( _mapper.Map<ClientCart>(newCartDto) );
 
             return Ok(updatedCart);
         }

@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Projekt_Inżynierski.Entities;
-using Projekt_Inżynierski.Helpers;
 using Projekt_Inżynierski.Interfaces;
 
 namespace Projekt_Inżynierski.Controllers
@@ -51,6 +51,7 @@ namespace Projekt_Inżynierski.Controllers
             return Ok(company);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateCompany([FromBody] string newCompanyName)
         {
@@ -67,6 +68,7 @@ namespace Projekt_Inżynierski.Controllers
             return Ok(newCompany);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateCompany(int id, [FromBody] string newCompanyName)
         {
@@ -88,7 +90,8 @@ namespace Projekt_Inżynierski.Controllers
 
             return Ok(updatedCompany);
         }
-
+        
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteCompany(int id)
         {

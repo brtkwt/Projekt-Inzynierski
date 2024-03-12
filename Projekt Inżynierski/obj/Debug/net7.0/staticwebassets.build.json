@@ -1,11 +1,37 @@
 {
   "Version": 1,
-  "Hash": "r8X5KBVlP/jr4rrLbxOJduGXDneyO5tSzoiLKMhs+ms=",
+  "Hash": "mhbTGwtE8chUN+K1RzJAzb0S9VohetAqnZ8/l+EoLjs=",
   "Source": "Projekt Inżynierski",
   "BasePath": "_content/Projekt Inżynierski",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "Projekt Inżynierski\\wwwroot",
+      "Source": "Projekt Inżynierski",
+      "ContentRoot": "C:\\Users\\bart\\Desktop\\Projekt Inżynierski\\Projekt Inżynierski\\wwwroot\\",
+      "BasePath": "_content/Projekt Inżynierski",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\bart\\Desktop\\Projekt Inżynierski\\Projekt Inżynierski\\wwwroot\\images\\products\\20240212182741184.png",
+      "SourceId": "Projekt Inżynierski",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bart\\Desktop\\Projekt Inżynierski\\Projekt Inżynierski\\wwwroot\\",
+      "BasePath": "_content/Projekt Inżynierski",
+      "RelativePath": "images/products/20240212182741184.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\products\\20240212182741184.png"
+    }
+  ]
 }

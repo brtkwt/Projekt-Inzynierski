@@ -1,14 +1,15 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Projekt_Inżynierski.Entities.Dtos
+namespace Projekt_Inżynierski.Dtos
 {
-    public class RegisterDto
+    public class LoginDto
     {
         [Required, EmailAddress]
         public string EmailAddress { get; set; }
-
-        [Required]
-        public string GivenName { get; set; }
 
         [Required]
         public string Password { get; set; }

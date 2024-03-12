@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();  // dodane
+builder.Services.AddAutoMapper( AppDomain.CurrentDomain.GetAssemblies() );  //dodane automapper
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -99,8 +100,10 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IProductRepository, ProductRepository>();    // dodane
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();  // dodane
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();    // dodane
+builder.Services.AddScoped<IImageService, ImageService>();    // dodane
 builder.Services.AddScoped<ICartRepository, CartRepository>();  // dodane przy cart
 builder.Services.AddScoped<ITokenService, TokenService>();  // dodane przy jwt
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();  // dodane przy jwt
 
 var app = builder.Build();
 
@@ -113,10 +116,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles();
+
 app.UseAuthentication();    // dodane
 app.UseAuthorization();     // dodane
-
-app.UseAuthorization();
 
 app.MapControllers(); // dodane
 
