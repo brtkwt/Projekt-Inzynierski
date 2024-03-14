@@ -30,8 +30,6 @@ namespace Projekt_Inżynierski.Controllers
         }
 
         [HttpGet]
-        // [ProducesResponseType(200, Type = typeof(IReadOnlyList<Product>))]
-        // [ProducesResponseType(400)]
         public async Task<IActionResult> GetProducts([FromQuery] ProductQueryObject query)
         {
             if(!ModelState.IsValid)
@@ -45,8 +43,6 @@ namespace Projekt_Inżynierski.Controllers
         }
         
         [HttpGet("{id:int}")]
-        // [ProducesResponseType(200, Type = typeof(Product))]
-        // [ProducesResponseType(400), ProducesResponseType(404)]
         public async Task<IActionResult> GetProduct(int id)
         {
             if(!ModelState.IsValid)

@@ -17,8 +17,6 @@ namespace Projekt_Inżynierski.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(IReadOnlyList<Company>))]
-        [ProducesResponseType(400)]
         public async Task<IActionResult> GetCompanies()
         {
             if(!ModelState.IsValid)
@@ -33,8 +31,6 @@ namespace Projekt_Inżynierski.Controllers
         }
 
         [HttpGet("{id:int}")]
-        [ProducesResponseType(200, Type = typeof(Company))]
-        [ProducesResponseType(400), ProducesResponseType(404)]
         public async Task<IActionResult> GetCompany(int id)
         {
             if(!ModelState.IsValid)

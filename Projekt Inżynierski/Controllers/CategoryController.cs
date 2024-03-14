@@ -17,8 +17,6 @@ namespace Projekt_Inżynierski.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(IReadOnlyList<Category>))]
-        [ProducesResponseType(400)]
         public async Task<IActionResult> GetCategories()
         {
             if(!ModelState.IsValid)
@@ -33,8 +31,6 @@ namespace Projekt_Inżynierski.Controllers
         }
 
         [HttpGet("{id:int}")]
-        [ProducesResponseType(200, Type = typeof(Category))]
-        [ProducesResponseType(400), ProducesResponseType(404)]
         public async Task<IActionResult> GetCategory(int id)
         {
             if(!ModelState.IsValid)
