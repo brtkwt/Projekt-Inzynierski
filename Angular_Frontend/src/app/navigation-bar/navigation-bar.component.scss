@@ -1,0 +1,21 @@
+.cart{
+    color: rgb(117, 114, 114);
+}
+
+.product-number{
+    position: absolute;
+    min-width: 30px;
+    min-height: 30px;
+    text-align: center;
+    background: #3FBC84;
+    color: black;
+    border-radius: 100%;
+    font-size: 19px;
+    font-weight: bold;
+    right: 56px;
+    top: 3px;
+}
+
+// ::placeholder {
+//     color: white;
+// }

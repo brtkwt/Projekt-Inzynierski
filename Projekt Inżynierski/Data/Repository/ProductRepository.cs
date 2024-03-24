@@ -57,6 +57,28 @@ namespace Projekt_Inżynierski.Data.Repository
             return await products.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
 
+        public async Task<int> CountProductsQuery(ProductQueryObject query)
+        {
+            var products = _context.Products.Include(p => p.Category).Include(p => p.Company).AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(query.NameSearch))
+            {
+                products = products.Where(c => c.Name.Contains(query.NameSearch));
+            }
+
+            if (query.CategoryId.HasValue)
+            {
+                products = products.Where(p => p.CategoryId == query.CategoryId);
+            }
+
+            if (query.CompanyId.HasValue)
+            {
+                products = products.Where(p => p.CompanyId == query.CompanyId);
+            }
+
+            return await products.CountAsync();
+        }
+
         public async Task<bool> ProductNameExistsAsync(string newProductName, int id = 0)
         {
             if (id != 0)

@@ -7,6 +7,7 @@ namespace Projekt_Inżynierski.Interfaces
     {
         Task<Product> GetProductByIdAsync(int id);
         Task<IReadOnlyList<Product>> GetProductsAsync(ProductQueryObject query);
+        Task<int> CountProductsQuery(ProductQueryObject query);
         Task<bool> ProductNameExistsAsync(string newProductName, int id = 0);
         Task<Product> CreateProductAsync(Product product);
         Task<Product> UpdateProductAsync(int id, Product product);

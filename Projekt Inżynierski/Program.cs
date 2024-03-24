@@ -50,6 +50,16 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(
+            name: "AllowOrigin",
+            builder =>{
+                builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+            });
+    });
 
 builder.Services.AddDbContext<DataContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
@@ -117,6 +127,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+app.UseCors("AllowOrigin");
 
 app.UseAuthentication();    // dodane
 app.UseAuthorization();     // dodane

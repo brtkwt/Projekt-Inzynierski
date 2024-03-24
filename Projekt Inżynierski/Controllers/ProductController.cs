@@ -35,11 +35,20 @@ namespace Projekt_Inżynierski.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            int productNumber = await _productRepository.CountProductsQuery(query);
             var products = await _productRepository.GetProductsAsync(query);
-
+            
             var productsDtos = _mapper.Map<IReadOnlyList<ProductReturnDto>>(products);
 
-            return Ok(productsDtos);
+            var response = new
+            {
+                ObjectList = productsDtos,
+                PageNumber = query.PageNumber,
+                TotalPages = (int)Math.Ceiling( (decimal)productNumber / query.PageSize),
+                PageSize = query.PageSize
+            };
+
+            return Ok(response);
         }
         
         [HttpGet("{id:int}")]
