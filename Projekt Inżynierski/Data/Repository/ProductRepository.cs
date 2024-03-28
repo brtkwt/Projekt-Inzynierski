@@ -47,6 +47,12 @@ namespace Projekt_Inżynierski.Data.Repository
                 case "costdesc":
                     products = products.OrderByDescending(p => p.Cost);
                     break;
+                case "dateasc":
+                    products = products.OrderBy(p => p.CreatedAt);
+                    break;
+                case "datedesc":
+                    products = products.OrderByDescending(p => p.CreatedAt);
+                    break;
                 default:
                     products = products.OrderBy(p => p.Name);
                     break;
@@ -57,7 +63,7 @@ namespace Projekt_Inżynierski.Data.Repository
             return await products.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
 
-        public async Task<int> CountProductsQuery(ProductQueryObject query)
+        public async Task<int> CountProductsForQuery(ProductQueryObject query)
         {
             var products = _context.Products.Include(p => p.Category).Include(p => p.Company).AsQueryable();
 

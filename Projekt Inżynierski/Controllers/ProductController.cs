@@ -35,7 +35,7 @@ namespace Projekt_Inżynierski.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            int productNumber = await _productRepository.CountProductsQuery(query);
+            int productNumber = await _productRepository.CountProductsForQuery(query);
             var products = await _productRepository.GetProductsAsync(query);
             
             var productsDtos = _mapper.Map<IReadOnlyList<ProductReturnDto>>(products);
@@ -45,6 +45,7 @@ namespace Projekt_Inżynierski.Controllers
                 ObjectList = productsDtos,
                 PageNumber = query.PageNumber,
                 TotalPages = (int)Math.Ceiling( (decimal)productNumber / query.PageSize),
+                ObjectCount = productNumber,
                 PageSize = query.PageSize
             };
 

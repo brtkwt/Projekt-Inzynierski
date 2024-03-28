@@ -3,5 +3,6 @@ export interface Pagination<T> {
     pageNumber: number
     totalPages: number
     pageSize: number
+    objectCount: number
   }
   

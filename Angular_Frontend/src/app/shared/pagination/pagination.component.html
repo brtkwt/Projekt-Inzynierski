@@ -1,0 +1,6 @@
+<pagination class="custom-pagination" *ngIf="pageSize && objectCount"
+    [itemsPerPage]="pageSize" [totalItems]="objectCount" [maxSize]="5" 
+    previousText="POPRZEDNIA" nextText="NASTĘPNA" (pageChanged)="onPageClickedEmit($event)"
+>
+
+</pagination>

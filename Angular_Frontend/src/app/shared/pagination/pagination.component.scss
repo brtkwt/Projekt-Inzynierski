@@ -1,0 +1,21 @@
+:host ::ng-deep .pagination .page-link {
+    color: #212529;
+}
+
+:host ::ng-deep .pagination .page-link:hover {
+    color: #FF851B; 
+}
+
+:host ::ng-deep .pagination .page-item.active .page-link {
+    font-weight: bold;
+    color: white;
+    background-color: #3FBC84;
+    border-color: #3FBC84;
+}
+
+:host ::ng-deep .pagination .page-item.disabled .page-link {
+    color: #a9b1b9;
+    background-color: #dfe2e6;
+    pointer-events: none;
+    text-decoration:line-through;
+}

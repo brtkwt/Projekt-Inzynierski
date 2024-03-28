@@ -1,0 +1,25 @@
+.list-group-item{
+    max-width: 130px;
+}
+
+.list-group-item.active{
+    background-color: #3FBC84;
+    border: black;
+    border-radius: 4%;
+}
+
+.list-group-item:active:hover{
+    color:white;
+}
+
+.list-group-item:hover{
+    //color: #FF851B;
+}
+
+.list-group:hover{
+    cursor: pointer;
+}
+
+.bold{
+    font-weight: bold;
+}

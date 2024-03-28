@@ -13,6 +13,6 @@ namespace Projekt_Inżynierski.Helpers
 
         public string SortBy { get; set; }
         public int PageNumber { get; set; } = 1;
-        public int PageSize { get; set; } = 9;
+        public int PageSize { get; set; } = 12;
     }
 }
