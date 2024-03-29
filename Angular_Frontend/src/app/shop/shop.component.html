@@ -42,9 +42,9 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-center my-4">
+            <div class="d-flex justify-content-center my-4 pagination">
 
-                <app-pagination [pageSize]="pageSize" [objectCount]="objectCount" (pageClicked)="onPageClicked($event)"></app-pagination>
+                <app-pagination [pageNumber]="pageNumber" [pageSize]="pageSize" [objectCount]="objectCount" (pageClicked)="onPageClicked($event)"></app-pagination>
                 
             </div>
 

@@ -38,12 +38,15 @@ export class ShopComponent implements OnInit{
     this.getCategories();
     this.getCompanies();
 
-    this.navBarService.newSearch.subscribe(searching => {
-      this.searching = searching;
-      this.selectedCategoryId=0;
-      this.selectedCompanyId=0;
-      this.getProducts();
-      window.scrollTo(0, 0);
+    this.navBarService.newSearch.subscribe({
+      next: searching =>{
+        this.searching = searching;
+        // this.selectedCategoryId=0;
+        // this.selectedCompanyId=0;
+        this.pageNumber = 1;
+        this.getProducts();
+        window.scrollTo(0, 0);
+      }
     });
 
   }
@@ -76,13 +79,13 @@ export class ShopComponent implements OnInit{
 
     if(event !== this.pageNumber){
       this.pageNumber = event;
-      //console.log(event);
       this.getProducts();
       window.scrollTo(0, 0);
     }
   }
   onPageSizeChanged(event: any){
       this.pageSize = event.target.value;
+      this.pageNumber = 1;
       this.getProducts();
       window.scrollTo(0, 0);
   }
@@ -90,20 +93,20 @@ export class ShopComponent implements OnInit{
   onSortingSelected(event: any){
     if(event.target.value !== this.pageSize){
       this.sortBy = event.target.value;
-      //this.pageNumber = 1;
+      this.pageNumber = 1;
       this.getProducts();
       window.scrollTo(0, 0);
     }
   }
   onCategoryIdSelected(categoryId: number){
     this.selectedCategoryId = categoryId;
-    //this.pageNumber = 1;
+    this.pageNumber = 1;
     this.getProducts();
     window.scrollTo(0, 0);
   }
   onCompanyIdSelected(companyId: number){
     this.selectedCompanyId = companyId;
-    //this.pageNumber = 1;
+    this.pageNumber = 1;
     this.getProducts();
     window.scrollTo(0, 0);
   }

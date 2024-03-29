@@ -9,6 +9,7 @@ export class PaginationComponent {
 [x: string]: any;
   @Input() pageSize?: number;
   @Input() objectCount?: number;
+  @Input() pageNumber?: number;
 
   @Output() pageClicked = new EventEmitter<number>();
 
