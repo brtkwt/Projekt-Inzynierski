@@ -7,13 +7,31 @@
     min-width: 30px;
     min-height: 30px;
     text-align: center;
-    background: #3FBC84;
+    background: #FF851B;
     color: black;
     border-radius: 100%;
     font-size: 19px;
     font-weight: bold;
     right: 56px;
     top: 3px;
+}
+
+.logo:hover{
+    cursor: pointer;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+    &.active{
+        // color: #FF851B;
+        color: #3FBC84;
+    }
+}
+
+.color{
+    background-color: #3FBC84;
+    // background-color: #FF851B;
 }
 
 // ::placeholder {

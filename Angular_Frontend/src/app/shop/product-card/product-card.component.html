@@ -1,21 +1,23 @@
-<div class="card shadow-sm h-90" *ngIf="product">
-    <img  class="img-fluid" src="{{product.imageAdress}}" alt="{{product.name}}" style="width: 300px; height: 170px; ">
-    <div class="card-body d-flex flex-column">
-      <a class="text-decoration-none text-dark" href="">
-            <h6>
+<div class="card" *ngIf="product" routerLink="/sklep/{{product.id}}" style="height: 90;">
+    <img  class="img-fluid" src="{{product.imageAdress}}" alt="{{product.name}}" style="width: 260px; height: 170px; background-size: contain;">
+    <div class="card-body d-flex flex-column ">
+      <a class="text-decoration-none text-dark">
+            <h6 >
                 {{product.name}}
             </h6>
       </a>
 
-      <span class="mb-2">
+      <span class="mb-2" style="font-size: 1.3em;">
             {{ product.cost | number }} zł
       </span>
 
-      <div class="btn-group mt-auto">
-            <button class="btn btn-outline-secondary me-2">
-                  <i class="fa fa-solid fa-cart-plus fa-2x"></i>
+      <div class="btn-group">
+
+            <button class="colorPom d-flex btn btn-outline-secondary justify-content-center">
+                  <i class="fa fa-solid fa-cart-plus fa-2x me-3"></i>
+                  <h5 class="pt-1 text-uppercase">Do koszyka</h5>
             </button>
-            <button class="btn btn-outline-secondary ">Zobacz</button>
+
       </div>
     </div>
-  </div>
+</div>

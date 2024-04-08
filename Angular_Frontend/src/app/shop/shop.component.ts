@@ -38,17 +38,7 @@ export class ShopComponent implements OnInit{
     this.getCategories();
     this.getCompanies();
 
-    this.navBarService.newSearch.subscribe({
-      next: searching =>{
-        this.searching = searching;
-        // this.selectedCategoryId=0;
-        // this.selectedCompanyId=0;
-        this.pageNumber = 1;
-        this.getProducts();
-        window.scrollTo(0, 0);
-      }
-    });
-
+    this.loadNavBarSearch();
   }
 
   getProducts(){
@@ -109,6 +99,19 @@ export class ShopComponent implements OnInit{
     this.pageNumber = 1;
     this.getProducts();
     window.scrollTo(0, 0);
+  }
+
+  loadNavBarSearch(){
+    this.navBarService.newSearch.subscribe({
+      next: searching =>{
+        this.searching = searching;
+        this.selectedCategoryId=0;
+        this.selectedCompanyId=0;
+        this.pageNumber = 1;
+        this.getProducts();
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
 }

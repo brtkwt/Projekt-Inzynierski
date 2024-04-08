@@ -44,4 +44,7 @@ export class ShopService {
     return this.http.get<Company[]>(this.basePath + 'company');
   }
 
+  getProductInfo(id: number){
+    return this.http.get<Product>(this.basePath + 'product/' + id);
+  }
 }

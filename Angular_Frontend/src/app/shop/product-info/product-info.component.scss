@@ -1,0 +1,16 @@
+.colorZiel{
+    color: #3FBC84;
+}
+
+.colorPom{
+    background: #FF851B;
+    color: white;
+
+    &:hover{
+        color: black;
+    }
+}
+
+.textBold{
+    font-weight: bold;
+}

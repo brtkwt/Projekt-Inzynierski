@@ -1,0 +1,17 @@
+.card{
+    cursor: pointer;
+
+    &:hover{
+        background: #3FBC84;
+    }
+}
+
+.colorPom{
+
+    background: white;
+
+    &:hover{
+        background: #FF851B;
+        color: white;
+    }
+}

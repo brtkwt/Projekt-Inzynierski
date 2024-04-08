@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +9,10 @@ import { CoreModule } from './core/core.module';
 import { ShopModule } from './shop/shop.module';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
+import { ContactModule } from './contact/contact.module';
+import { HomeModule } from './home/home.module';
+import { SharedModule } from './shared/shared.module';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,10 +25,16 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     CoreModule,
     ShopModule,
-    PaginationModule.forRoot(),
+    SharedModule,
     FormsModule,
+    ContactModule,
+    HomeModule,
   ],
-  providers: [],
+  
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
