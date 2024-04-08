@@ -1,7 +1,7 @@
-<div class="container">
-    <div class="row ">
-        <section class="col-2 pt-3 ps-lg-5 mb-2">
-            <h4 class="ps-lg-4 mb-2">KATEGORIE</h4>
+<div class="container pt-2">
+    <div *ngIf="categories.length>0 && companies.length>0" class="row ">
+        <section class="col-2 pt-2 ps-lg-5 mb-2">
+            <h5 class="text-center mb-2">Kategorie</h5>
             <ul class="list-group ps-lg-3">
                 <li class="list-group-item" *ngFor="let category of categories" [class.active]="category.id === selectedCategoryId" [value]="category.id"
                     [class.bold]="category.id === 0" (click)="onCategoryIdSelected(category.id)" 
@@ -10,7 +10,7 @@
                 </li>
             </ul>
 
-            <h4 class="mt-3 mb-2 ps-lg-4">MARKI</h4>
+            <h5 class="mt-3 mb-2 text-center">Marki</h5>
             <ul class="list-group ps-lg-3">
                 <li class="list-group-item" *ngFor="let company of companies" [class.active]="company.id === selectedCompanyId" [value]="company.id"
                     [class.bold]="company.id === 0" (click)="onCompanyIdSelected(company.id)"
@@ -22,15 +22,15 @@
         </section>
         <section class="col-10">
 
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-end me-1">
                 <div class="d-flex justify-content-between">
-                    <h4 class="ms-5 me-3" style="white-space: nowrap;">Wyświetlana ilość</h4>
-                    <input type="number" class="form-control mb-3 me-5" [value]="pageSize" min="1" max="20" 
-                        style="max-width: 60px;" (input)="onPageSizeChanged($event)"
+                    <h6 class="ms-1 me-3 mt-2" style="white-space: nowrap;">Wyświetlana ilość</h6>
+                    <input type="number" class="form-control mb-2" [value]="pageSize" min="1" max="20" 
+                        style="max-width: 60px; margin-right: 30px;" (keyup.enter)="onPageSizeChanged($event)"
                     >
 
-                    <h4 class="ms-5 me-3">Sortuj</h4>
-                    <select class="form-select mb-3" (change)="onSortingSelected($event)">
+                    <h6 class="me-3 mt-2">Sortuj</h6>
+                    <select class="form-select mb-2 fs-7" (change)="onSortingSelected($event)">
                         <option *ngFor="let sorting of sortingOptions" [value]="sorting.value">{{sorting.name}}</option>
                     </select>
                 </div>

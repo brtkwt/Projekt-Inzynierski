@@ -1,0 +1,23 @@
+<ng-container *ngIf="breadCrumbService.breadcrumbs$ | async as breadcrumbs">
+    <div *ngIf="breadcrumbs[breadcrumbs.length-1].label != 'Strona Główna'" 
+        class="container-fluid" style="height: 40px; margin-top: 80px; background-color: #3fbc843f;"
+    >
+        <div class="row justify-content-center align-items-center h-100">
+          <div class="d-flex col-6 justify-content-center">
+    
+            <xng-breadcrumb>
+    
+                <ng-container *xngBreadcrumbItem="let bc">
+                    {{bc | titlecase}}
+                </ng-container>
+    
+            </xng-breadcrumb>
+    
+          </div>
+        </div>
+    </div>
+
+</ng-container>
+
+  <!-- #3FBC84; #FF851B;-->
+  

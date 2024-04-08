@@ -7,9 +7,9 @@
         <a class="link p-3 " routerLink="/sklep" routerLinkActive="active">Sklep</a>
         <a class="link p-3 " routerLink="/kontakt" routerLinkActive="active">Kontakt</a>
     </nav>
-    <!-- (keyup.enter)="passSearching()" -->
-    <div class="me-lg-5 search" >
-        <input  type="search" class=" form-control" placeholder="Wyszukaj..." #searching  (input)="newInput()">
+    
+    <div class="me-lg-5 ">
+        <input  type="search" class=" form-control me-5" style="width: 140px;" placeholder="Wyszukaj..." #searching  (keyup.enter)="newInput()" (search)="resetInput()">
     </div>
 
     <div class="d-flex align-items-center ">

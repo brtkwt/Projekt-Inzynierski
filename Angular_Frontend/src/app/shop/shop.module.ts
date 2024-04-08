@@ -5,6 +5,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProductInfoComponent } from './product-info/product-info.component';
 import { RouterModule } from '@angular/router';
+import { BreadcrumbModule } from 'xng-breadcrumb';
+import { ShopRoutingModule } from './shop-routing.module';
 
 
 @NgModule({
@@ -16,10 +18,12 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+    BreadcrumbModule
   ],
   exports: [
     ShopComponent,
+    ShopRoutingModule,
   ]
 })
 export class ShopModule { }

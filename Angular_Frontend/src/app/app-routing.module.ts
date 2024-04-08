@@ -9,14 +9,13 @@ import { ErrorNotFoundComponent } from './core/error-not-found/error-not-found.c
 import { ErrorInternalServerComponent } from './core/error-internal-server/error-internal-server.component';
 
 const routes: Routes = [
+
   // Strona Głóna
-  {path: "", component:HomeComponent},
+  {path: "", component:HomeComponent, data: {breadcrumb: "Strona Główna"}},
   // Sklep
-  {path: "sklep", component:ShopComponent},
+  {path: "sklep", loadChildren: () => import('./shop/shop.module').then(t => t.ShopModule)},
   // Kontakt
   {path: "kontakt", component:ContactComponent},
-  // produkt
-  {path: "sklep/:id", component:ProductInfoComponent},
 
   // not-found error
   {path: "nie-znaleziono", component:ErrorNotFoundComponent},

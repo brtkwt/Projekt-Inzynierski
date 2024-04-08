@@ -13,6 +13,7 @@ import { ContactModule } from './contact/contact.module';
 import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import { LoadingPageInterceptor } from './core/interceptors/loading-page.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
   ],
   
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingPageInterceptor, multi: true}
   ],
 
   bootstrap: [AppComponent]

@@ -17,5 +17,7 @@ export class NavigationBarComponent {
     this.navBarService.onNewSearch(this.searchWord?.nativeElement.value);
   }
   
-  
+  resetInput() {
+    this.navBarService.onNewSearch("");
+  }
 }
