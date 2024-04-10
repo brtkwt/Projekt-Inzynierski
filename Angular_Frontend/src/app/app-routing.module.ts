@@ -17,10 +17,16 @@ const routes: Routes = [
   // Kontakt
   {path: "kontakt", component:ContactComponent},
 
+  // Koszyk
+  {path: "koszyk", loadChildren: () => import('./cart/cart.module').then(t => t.CartModule)},
+
   // not-found error
   {path: "nie-znaleziono", component:ErrorNotFoundComponent},
   // internal-server error
   {path: "blad-servera", component:ErrorInternalServerComponent},
+
+  // Finalizacja
+  {path: "finalizacja", loadChildren: () => import('./finalization/finalization.module').then(t => t.FinalizationModule)},
 
   {path: "**", redirectTo: "", pathMatch: "full"}
 

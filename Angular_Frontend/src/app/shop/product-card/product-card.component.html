@@ -1,24 +1,28 @@
-<div class="card" *ngIf="product" routerLink="/sklep/{{product.id}}" style="height: 90;">
+<div class="card" *ngIf="product">
       
-    <img  class="img-fluid" src="{{product.imageAdress}}" alt="{{product.name}}" style="width: 260px; height: 170px; background-size: contain;">
-    <div class="card-body d-flex flex-column ">
-      <a class="text-decoration-none text-dark">
-            <h6 >
-                {{product.name}}
-            </h6>
-      </a>
+    <img  class="styl-img img-fluid pointer" src="{{product.imageAdress}}" alt="{{product.name}}" routerLink="/sklep/{{product.id}}">
+    
+    <div class="card-body d-flex flex-column pt-2 pb-0 pointer" routerLink="/sklep/{{product.id}}">
 
-      <span class="mb-2" style="font-size: 1.3em;">
-            {{ product.cost | number }} zł
-      </span>
+            <a class="text-decoration-none text-dark">
+                  <h6 class="text-center" style="font-size: 1.02em;">
+                  {{product.name}}
+                  </h6>
+            </a>
 
-      <div class="btn-group">
+            <span class="d-flex pt-auto justify-content-center" style="font-size: 1.3em; font-weight: bold; color: #3FBC84;">
+                  {{ product.cost | number }} zł
+            </span>
 
-            <button class="colorPom d-flex btn btn-outline-secondary justify-content-center">
+    </div>
+
+    <div class="d-flex justify-content-center mt-1 mb-3" style="cursor:default;">
+
+            <button class="colorPom d-flex btn btn-outline-secondary justify-content-center " (click)="addProductToCart()">
                   <i class="fa fa-solid fa-cart-plus fa-2x me-3"></i>
-                  <h5 class="pt-1 text-uppercase">Do koszyka</h5>
+                  <h6 class="pt-1 text-uppercase">Do koszyka</h6>
             </button>
 
       </div>
-    </div>
+
 </div>

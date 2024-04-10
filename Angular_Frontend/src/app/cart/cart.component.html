@@ -1,0 +1,144 @@
+<div class="container" style="padding-top: 45px;">
+    <div *ngIf="(cartService.cartSource$ | async) === null" class="d-flex justify-content-center pt-5">
+        <span class="fs-5">Nie dodano jeszcze produktów !</span>
+    </div>
+
+    <ng-container *ngIf="(cartService.cartSource$ | async) as cart">
+        <div class="container">
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+                                <th class="tlo">
+                                    <div class="text-center py-1">Produkty</div>
+                                </th>
+
+                                <th class="tlo">
+                                    <div class="text-center py-1">Cena</div>
+                                </th>
+
+                                <th class="tlo">
+                                    <div class="text-center py-1">Ilość</div>
+                                </th>
+
+                                <th class="tlo">
+                                    <div class="text-center py-1">Suma</div>
+                                </th>
+
+                                <th class="tlo">
+                                    <div class="text-center py-1">Usuń</div>
+                                </th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let item of cart.items">
+                                <th>
+                                    <div class="d-inline-block p-1">
+
+                                        <img src="{{item.pictureUrl}}" alt="{{item.productName}}" class="pic img-fluid">
+                                        
+                                        <div class="d-inline-block am ms-3">
+
+                                            <h4 class="mb-0">
+                                                <a class="a1" routerLink="/sklep/{{item.id}}">
+                                                    {{item.productName}}
+                                                </a>
+                                            </h4>
+
+                                            <div>
+                                                <span class="textszary ps-1">
+                                                    Kategoria: <span class="zielony">{{item.category}}</span>
+                                                </span>
+                                            </div>
+
+                                            <div>
+                                                <span class="textszary ps-1">
+                                                    Marka: <span class="zielony">{{item.company}}</span>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </th>
+
+                                <td class="cena text-center am">
+                                    {{item.cost | number}} zł
+                                </td>
+
+                                <td class="am">
+                                    <div class="d-flex justify-content-center">
+                                        <input type="number" class="form-control text-center" [value]="item.productNumber" min="1" max="99" 
+                                            style="width: 61px;" #numberP (keyup.enter)="updateNumberOfProducts(item.id, numberP.value)"
+                                        >
+                                    </div>
+                                </td>
+
+                                <td class="text-center suma am">
+                                    {{item.productNumber * item.cost | number}} zł
+                                </td>
+
+                                <td class="am">
+                                    <div class="d-flex justify-content-center">
+                                        <a>
+                                            <i class="fa fa-times icon" (click)="deleteProducts(item.id, item.productNumber)"></i>
+                                        </a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="d-flex row justify-content-center mb-4">
+                <div class="col-3">
+                    <div class="tlo text-center px-4 py-2" style="font-size: 1.1em;">
+                        Podsumowanie
+                    </div>
+        
+                    <div class="px-2">
+
+                        <ul class="list-unstyled mb-2 fs-5" *ngIf="(cartService.cartSumCostsSource$ | async) as cartSums">
+
+                            <li class="d-flex cena justify-content-between py-2 border-bottom">
+                                <div class="textszary">Suma:</div>
+                                {{cartSums.sumCost| number}} zł
+                            </li>
+        
+                            <li class="d-flex cena justify-content-between py-2 border-bottom">
+                                <div class="textszary">Dostawa:</div>
+                                {{cartSums.shippingCost| number}} zł
+                            </li>
+        
+                            <li class="d-flex sumaOst justify-content-between py-2 border-bottom">
+                                <div class="textszary">Pełna cena:</div>
+                                {{cartSums.fullCost| number}} zł
+                            </li>
+        
+                        </ul>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center align-items-center pt-1">
+                        <a class="przycisk btn btn-outline-secondary pt-2" routerLink="/finalizacja">
+                            <span class="sp align-middle me-2">Przejdź do kasy</span>
+
+                            <i class="fa fa-arrow-right arrow ms-2 align-middle"></i> 
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </ng-container>
+
+</div>

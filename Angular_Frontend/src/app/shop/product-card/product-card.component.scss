@@ -1,9 +1,21 @@
 .card{
-    cursor: pointer;
 
     &:hover{
         background: #3fbc8456;
     }
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.styl-img{
+    width: 270px;
+    height: 180px;
+    background-size: contain;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    overflow: hidden;
 }
 
 .colorPom{

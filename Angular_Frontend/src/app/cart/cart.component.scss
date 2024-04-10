@@ -1,0 +1,74 @@
+.zielony{
+    color: #3FBC84;
+    font-weight: bold;
+}
+
+.am{
+    vertical-align: middle;
+}
+
+.tlo{
+    background-color: #ff851b4b;
+    color: #212529;
+    //text-shadow: 0px 0px 1px white;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.textszary{
+    color: gray;
+    font-weight: 400;
+}
+
+.pic{
+    height: 70px;
+    width: 100px;
+}
+
+.cena{
+    font-weight: 400;
+}
+
+.suma{
+    font-weight: 500;
+}
+
+.sumaOst{
+    font-weight: 700;
+}
+
+.icon{
+    color: rgb(255, 69, 69);
+    font-size: 2.5em;
+    cursor: pointer;
+}
+
+.przycisk{
+    height: 80%;
+    width: 290px;
+    background-color: #FF851B;
+    color: white;
+
+    &:hover{
+        color: black;
+    }
+}
+
+.arrow{
+    font-size: 2.5em;
+}
+
+.sp{
+    font-size: 1.4em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.a1{
+    color:#212529;
+    text-decoration: none;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}

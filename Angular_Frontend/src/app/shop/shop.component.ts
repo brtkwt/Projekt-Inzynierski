@@ -74,10 +74,16 @@ export class ShopComponent implements OnInit{
     }
   }
   onPageSizeChanged(event: any){
+    if(parseInt(event.target.value) === 0){
+      this.pageSize = 1;
+    }
+    else{
       this.pageSize = event.target.value;
-      this.pageNumber = 1;
-      this.getProducts();
-      window.scrollTo(0, 0);
+    }
+  
+    this.pageNumber = 1;
+    this.getProducts();
+    window.scrollTo(0, 0);
   }
 
   onSortingSelected(event: any){

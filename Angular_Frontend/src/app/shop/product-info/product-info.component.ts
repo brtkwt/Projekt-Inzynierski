@@ -3,6 +3,7 @@ import { Product } from 'src/app/shared/models/product';
 import { ShopService } from '../shop.service';
 import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbService } from 'xng-breadcrumb';
+import { CartService } from 'src/app/cart/cart.service';
 
 @Component({
   selector: 'app-product-info',
@@ -12,7 +13,9 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 export class ProductInfoComponent implements OnInit{
   product?: Product;
 
-  constructor( private activeRoute: ActivatedRoute, private shopService: ShopService, private breadCrumbService: BreadcrumbService) {
+  constructor( private activeRoute: ActivatedRoute, private shopService: ShopService, private breadCrumbService: BreadcrumbService,
+    private cartService: CartService
+  ) {
     this.breadCrumbService.set("@bcProductName", " ")
   }
 
@@ -22,6 +25,15 @@ export class ProductInfoComponent implements OnInit{
 
   }
 
+  addProduct(product: Product, productNumber: string){
+
+    if(parseInt(productNumber) !== 0){
+      this.cartService.addProductToCartFromInfo(product, parseInt(productNumber));
+    }
+    else{
+      this.cartService.addProductToCartFromInfo(product, 1);
+    }
+  }
 
   loadProductInfo(){
     const productId = this.activeRoute.snapshot.paramMap.get('id');

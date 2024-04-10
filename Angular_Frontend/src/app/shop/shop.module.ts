@@ -19,7 +19,7 @@ import { ShopRoutingModule } from './shop-routing.module';
     RouterModule,
     CommonModule,
     SharedModule,
-    BreadcrumbModule
+    BreadcrumbModule,
   ],
   exports: [
     ShopComponent,
