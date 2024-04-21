@@ -4,6 +4,7 @@ import { Cart, CartSums } from '../shared/models/cart';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../shared/models/product';
 import { CartItem } from '../shared/models/cartItem';
+import { ShippingMethod } from '../shared/models/shippingMethod';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,14 @@ export class CartService {
   private cartSumCostsSource = new BehaviorSubject<CartSums | null>(null);
   cartSumCostsSource$ = this.cartSumCostsSource.asObservable(); 
 
+  shippingFee = 0;
+
   constructor(private http: HttpClient) {}
+
+  addShippingFee(shippingMethod: ShippingMethod){
+    this.shippingFee = shippingMethod.shippingFee;
+    this.countSums();
+  }
 
   private countSums(){
     const cart = this.getCart();
@@ -27,12 +35,11 @@ export class CartService {
       return;
     }
     else{
-      const shippingCost = 0;
       const sumCost = cart.items.reduce((p,c) => c.productNumber * c.cost + p, 0);
 
-      const fullCost = sumCost + shippingCost;
+      const fullCost = sumCost + this.shippingFee;
 
-      this.cartSumCostsSource.next({shippingCost, sumCost, fullCost});
+      this.cartSumCostsSource.next({shippingCost: this.shippingFee, sumCost, fullCost});
     }
   }
 
@@ -155,11 +162,15 @@ export class CartService {
   deleteCart(cart: Cart){
     return this.http.delete(this.basePath + "cart?cartId=" + cart.id).subscribe({
       next: () => {
-        localStorage.removeItem("cartId");
-        this.cartSource.next(null);
-        this.cartSumCostsSource.next(null);
+        this.deleteCartAfterNewOrder();
       }
     })
+  }
+
+  deleteCartAfterNewOrder(){
+    localStorage.removeItem("cartId");
+    this.cartSource.next(null);
+    this.cartSumCostsSource.next(null);
   }
  
 

@@ -3,6 +3,7 @@ import { NavigationBarService } from './navigation-bar.service';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/cart/cart.service';
 import { CartItem } from 'src/app/shared/models/cartItem';
+import { AccountService } from 'src/app/account/account.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -12,7 +13,7 @@ import { CartItem } from 'src/app/shared/models/cartItem';
 export class NavigationBarComponent {
   @ViewChild('searching') searchWord?: ElementRef;
 
-  constructor(private navBarService: NavigationBarService, private ruter: Router, public cartService: CartService) {}
+  constructor(private navBarService: NavigationBarService, private ruter: Router, public cartService: CartService, public acService: AccountService) {}
 
   newInput(){
     this.navBarService.onNewSearch(this.searchWord?.nativeElement.value);

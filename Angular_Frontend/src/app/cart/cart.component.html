@@ -108,17 +108,17 @@
 
                             <li class="d-flex cena justify-content-between py-2 border-bottom">
                                 <div class="textszary">Suma:</div>
-                                {{cartSums.sumCost| number}} zł
+                                {{cartSums.sumCost.toFixed(2)}} zł
                             </li>
         
                             <li class="d-flex cena justify-content-between py-2 border-bottom">
                                 <div class="textszary">Dostawa:</div>
-                                {{cartSums.shippingCost| number}} zł
+                                {{cartSums.shippingCost.toFixed(2)}} zł
                             </li>
         
                             <li class="d-flex sumaOst justify-content-between py-2 border-bottom">
                                 <div class="textszary">Pełna cena:</div>
-                                {{cartSums.fullCost| number}} zł
+                                {{cartSums.fullCost.toFixed(2)}} zł
                             </li>
         
                         </ul>

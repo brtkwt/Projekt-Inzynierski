@@ -1,0 +1,53 @@
+<div class="container" style="padding-top: 45px;">
+    <div class="row">
+        <table class="table table-hover pt">
+
+            <thead>
+                <tr>
+
+                    <th class="tlo">
+                        <div class="text-center py-1">Numer zamówienia</div>
+                    </th>
+
+                    <th class="tlo">
+                        <div class="text-center py-1">Data złożenia</div>
+                    </th>
+
+                    <th class="tlo">
+                        <div class="text-center py-1">Pełna cena</div>
+                    </th>
+
+                    <th class="tlo">
+                        <div class="text-center py-1">Status zamówienia</div>
+                    </th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let order of orders" routerLink="/zamowienia/{{order.id}}">
+
+                    <th class="cnt pom">
+                        {{order.id}}
+                    </th>
+
+                    <td class="cnt">
+                        {{order.orderDate | date: 'dd/MM/yyyy - HH:mm'}}
+                    </td>
+
+                    <td class="suma cnt">
+                        {{order.fullCost.toFixed(2)}} zł
+                    </td>
+
+                    <td class="cnt zielony">
+                        {{order.orderStatus}}
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+</div>

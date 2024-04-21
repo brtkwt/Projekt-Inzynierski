@@ -8,6 +8,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from './header/header.component';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -26,6 +27,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     }),
     BreadcrumbModule,
     NgxSpinnerModule,
+    SharedModule,
+    
   ],
   exports: [
     NavigationBarComponent,

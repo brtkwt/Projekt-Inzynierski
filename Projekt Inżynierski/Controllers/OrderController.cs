@@ -84,7 +84,7 @@ namespace Projekt_Inżynierski.Controllers
 
         [Authorize(Roles = "Client, Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateOrder([FromForm] CreateOrderDto createOrderDto)
+        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto createOrderDto)
         {
             var emailAddress = User.FindFirstValue(ClaimTypes.Email);
             var shippingAddress = _mapper.Map<OrderShippingAddress>(createOrderDto.ShippingAddressDto);

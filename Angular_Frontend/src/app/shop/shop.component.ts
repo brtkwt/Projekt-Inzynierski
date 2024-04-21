@@ -74,8 +74,11 @@ export class ShopComponent implements OnInit{
     }
   }
   onPageSizeChanged(event: any){
-    if(parseInt(event.target.value) === 0){
+    if(parseInt(event.target.value) <= 0){
       this.pageSize = 1;
+    }
+    else if(parseInt(event.target.value) > 20){
+      this.pageSize = 20;
     }
     else{
       this.pageSize = event.target.value;

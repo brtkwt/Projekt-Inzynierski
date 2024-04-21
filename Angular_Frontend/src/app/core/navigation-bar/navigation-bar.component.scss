@@ -20,7 +20,7 @@
     cursor: pointer;
 }
 
-a{
+.a1{
     color: white;
     text-decoration: none;
     &.active{
@@ -32,6 +32,22 @@ a{
 .color{
     background-color: #3FBC84;
     // background-color: #FF851B;
+}
+
+.hh6{
+    background-color: rgb(231, 231, 231);
+    border-radius: 7px;
+}
+
+.b1{
+    border-radius: 7px ;
+    color: white;
+    background-color: #3FBC84;
+    text-decoration: none;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 4px;
 }
 
 // ::placeholder {

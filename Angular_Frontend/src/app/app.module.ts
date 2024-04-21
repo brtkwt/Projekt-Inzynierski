@@ -14,10 +14,15 @@ import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { LoadingPageInterceptor } from './core/interceptors/loading-page.interceptor';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { OrderInfoComponent } from './order/order-info/order-info.component';
+import { OrderModule } from './order/order.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+    OrderInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,11 +35,14 @@ import { LoadingPageInterceptor } from './core/interceptors/loading-page.interce
     FormsModule,
     ContactModule,
     HomeModule,
+    TabsModule.forRoot(),
+    OrderModule,
   ],
   
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: LoadingPageInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingPageInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
   ],
 
   bootstrap: [AppComponent]

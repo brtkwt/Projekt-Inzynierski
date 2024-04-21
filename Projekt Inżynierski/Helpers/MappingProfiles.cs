@@ -33,7 +33,8 @@ namespace Projekt_Inżynierski.Helpers
             CreateMap<Order,OrderReturnDto>()
                 .ForMember(m => m.ShippingCost, m => m.MapFrom(f => f.ShippingMethod.ShippingFee) )
                 .ForMember(m => m.ShippingMethod, m => m.MapFrom(f => f.ShippingMethod.Name) )
-                .ForMember(m => m.OrderItemDtos, m => m.MapFrom(f => f.OrderItems) );
+                .ForMember(m => m.OrderItemDtos, m => m.MapFrom(f => f.OrderItems) )
+                .ForMember(m => m.FullCost, m => m.MapFrom(f => f.GetFullCost()) );
 
         }
     }

@@ -1,0 +1,12 @@
+.przycisk{
+    height: 80%;
+    width: 200px;
+    background-color: #FF851B;
+    color: white;
+    font-weight: 600;
+    border-color: #212529;
+
+    &:hover{
+        color: black;
+    }
+}

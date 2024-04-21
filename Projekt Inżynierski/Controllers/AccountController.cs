@@ -73,7 +73,7 @@ namespace Projekt_Inżynierski.Controllers
                 var ShippingAddressDto = _mapper.Map<ShippingAddressDto>(user.ShippingAddress);
                 return Ok(ShippingAddressDto);
             }
-            return BadRequest("Shipping adress empty !");
+            return Ok(null);
         }
 
         [Authorize]

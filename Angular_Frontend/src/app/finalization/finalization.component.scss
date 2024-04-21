@@ -1,0 +1,25 @@
+.bold{
+    font-weight: bold;
+}
+
+.orange{
+    color:#FF851B;
+    font-weight: bold;
+}
+
+.przycisk{
+    height: 50px;
+    width: 350px;
+    background-color: #FF851B;
+    color: white;
+
+    &:hover{
+        color: black;
+    }
+}
+
+.sp{
+    font-size: 1.4em;
+    font-weight: bold;
+    text-transform: uppercase;
+}

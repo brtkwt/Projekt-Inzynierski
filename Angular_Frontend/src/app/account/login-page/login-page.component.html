@@ -1,0 +1,26 @@
+<div class="justify-content-center mt-5 d-flex">
+    <div class="col-2 mt-4">
+        <form [formGroup]="newFormForLogging" (ngSubmit) ="onDataSent()">
+
+            <div class="text-center mb-4">
+                <h1 class="mb-3">
+                    Logowanie
+                </h1>
+
+            </div>
+
+            <app-input-form-text [formControl]="newFormForLogging.controls['emailAddress']" [inputLabel]="'Adres Email'"></app-input-form-text>
+            <app-input-form-text [formControl]="newFormForLogging.controls['password']" [inputType]="'password'" [inputLabel]="'Hasło'"></app-input-form-text>
+
+            <div class="d-flex justify-content-center">
+
+                <button class="btn btn-lg przycisk btn-primary mt-3" type="submit" [disabled]="newFormForLogging.invalid" >
+                    Zaloguj
+                </button>
+
+            </div>
+
+        </form>
+    </div>
+
+</div>

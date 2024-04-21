@@ -4,16 +4,10 @@ namespace Projekt_Inżynierski.Entities.Order
 {
     public enum OrderStatus
     {
-        [EnumMember(Value ="Created")]
+        [EnumMember(Value ="Utworzono")]
         Created,
 
-        [EnumMember(Value ="TransactionConfirmed")]
-        TransactionConfirmed,
-
-        [EnumMember(Value ="TransactionError")]
-        TransactionError,
-
-        [EnumMember(Value ="OrderConfirmed")]
+        [EnumMember(Value ="Potwierdzono")]
         OrderConfirmed,
     }
 }

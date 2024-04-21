@@ -1,3 +1,81 @@
 <div class="container pt-5">
-    <h1>finalization works!</h1>
+    <div class="row pt-4" >
+        <div class="col-8" *ngIf="newFinalizationForm">
+            <div class="mt-4" [formGroup]="newFinalizationForm" >
+                <div class="d-flex justify-content-between align-tems-center">
+                    <h4>Adres dostawy</h4>
+                    <button class="btn btn-outline-primary mb-3" [disabled]="!newFinalizationForm.dirty" (click)="updateAddressOfUser()" >
+                        Zapisz jako domyślny
+                    </button>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-6">
+                        <app-input-form-text [formControl]="newFinalizationForm.controls['firstName']" [inputLabel]="'Imię'" [inputType]="'firstName'"></app-input-form-text>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <app-input-form-text [formControl]="newFinalizationForm.controls['lastName']" [inputLabel]="'Nazwisko'" [inputType]="'lastName'"></app-input-form-text>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <app-input-form-text [formControl]="newFinalizationForm.controls['country']" [inputLabel]="'Kraj'" [inputType]="'country'"></app-input-form-text>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <app-input-form-text [formControl]="newFinalizationForm.controls['voivodeship']" [inputLabel]="'Województwo'" [inputType]="'voivodeship'"></app-input-form-text>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <app-input-form-text [formControl]="newFinalizationForm.controls['city']" [inputLabel]="'Miasto'" [inputType]="'city'"></app-input-form-text>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <app-input-form-text [formControl]="newFinalizationForm.controls['street']" [inputLabel]="'Ulica'" [inputType]="'street'"></app-input-form-text>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <app-input-form-text [formControl]="newFinalizationForm.controls['buildingNumber']" [inputLabel]="'Numer budynku'" [inputType]="'buildingNumber'"></app-input-form-text>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <app-input-form-text [formControl]="newFinalizationForm.controls['zipCode']" [inputLabel]="'Kod pocztowy'" [inputType]="'zipCode'"></app-input-form-text>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4 mt-4 ps-5">
+            <div [formGroup]="newFinalizationForm" >
+                <div class="row">
+                    <h4 class="text-center">Metody dostawy</h4>
+                    <div class="col-6 form-group mt-4" *ngFor="let m of shippingMethods">
+                        <input type="radio" class="form-check-input" value="{{m.id}}" id="{{m.id}}" formControlName="shippingMethod" (click)="addShippingFee(m)">
+
+                        <label for="{{m.id}}" class="form-check-label ms-2 mb-3" >
+                            {{m.name}} - {{m.shippingFee.toFixed(2)}} zł
+                            <br>
+                            <span class="label-description">
+                                {{m.description}}
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row col-12 mt-5 text-center d-flex justify-content-center">
+        <div class="d-flex justify-content-center" *ngIf="(cs.cartSumCostsSource$ | async) as cartSums">
+            <span class="fs-4 bold">Pełna suma: </span>
+            <span class="orange fs-4">{{cartSums.fullCost.toFixed(2)}} zł</span>
+        </div>
+    
+        <button class="d-flex justify-content-center btn btn-outline-secondary przycisk mt-3 " 
+            [disabled]="!newFinalizationForm.get('shippingMethod')?.dirty || !newFinalizationForm.valid" (click)="createNewOrder()">
+            <span class="sp fs-4">Złóż zamówienie</span>
+        </button>
+    </div>
+    
 </div>
