@@ -12,7 +12,6 @@ namespace Projekt_Inżynierski.Entities
         public string ImagePath { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        // navigation properties
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 

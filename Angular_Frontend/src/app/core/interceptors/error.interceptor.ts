@@ -39,7 +39,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.ruter.navigateByUrl('/nie-znaleziono');
           }
 
-          //Server-error
+          // Server-error
           if(blad.status == 500){
             const extraInfo: NavigationExtras = {state: {error: blad.error}}
 

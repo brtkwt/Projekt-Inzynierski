@@ -168,7 +168,7 @@ namespace Projekt_Inżynierski.Controllers
                 return NotFound();
             }
 
-            _imageService.DeleteImage(product.ImagePath);   // napewno?
+            _imageService.DeleteImage(product.ImagePath);
 
             return NoContent();
         }

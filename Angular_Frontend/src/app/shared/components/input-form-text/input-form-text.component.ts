@@ -12,7 +12,6 @@ export class InputFormTextComponent  implements ControlValueAccessor{
   @Input() inputLabel = ""
 
 
-  // self - unique for every input
   constructor(@Self() public controlDir: NgControl) { 
     this.controlDir.valueAccessor = this
 

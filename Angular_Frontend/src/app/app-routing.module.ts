@@ -9,7 +9,7 @@ import { ErrorNotFoundComponent } from './core/error-not-found/error-not-found.c
 import { ErrorInternalServerComponent } from './core/error-internal-server/error-internal-server.component';
 import { AuthorisationGuard } from './core/guards/authorisation.guard';
 
-const routes: Routes = [
+const routing: Routes = [
 
   // Strona Głóna
   {path: "", component:HomeComponent, data: {breadcrumb: "Strona Główna"}},
@@ -41,7 +41,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routing)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

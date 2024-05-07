@@ -53,7 +53,7 @@ namespace Projekt_Inżynierski.Data.Repository
 
             if(existingCategory == null)
             {
-                return null;    // ?????
+                return null;
             }
 
             existingCategory.Name = newCategoryName;
@@ -68,7 +68,7 @@ namespace Projekt_Inżynierski.Data.Repository
 
             if(existingCategory == null)
             {
-                return -1;    // ?????
+                return -1;
             }
 
             return await _context.Products.CountAsync( x => x.CategoryId == id);

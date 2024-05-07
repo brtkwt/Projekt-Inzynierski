@@ -28,12 +28,10 @@ namespace Projekt_Inżynierski.Data.Repository
             {
                 products = products.Where(c => c.Name.Contains(query.NameSearch));
             }
-
             if (query.CategoryId.HasValue)
             {
                 products = products.Where(p => p.CategoryId == query.CategoryId);
             }
-
             if (query.CompanyId.HasValue)
             {
                 products = products.Where(p => p.CompanyId == query.CompanyId);

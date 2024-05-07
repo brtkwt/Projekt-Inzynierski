@@ -53,7 +53,7 @@ namespace Projekt_Inżynierski.Data.Repository
 
             if(existingCompany == null)
             {
-                return null;    // ?????
+                return null;
             }
 
             existingCompany.Name = newCompanyName;
@@ -68,7 +68,7 @@ namespace Projekt_Inżynierski.Data.Repository
 
             if(existingCompany == null)
             {
-                return -1;    // ?????
+                return -1;
             }
 
             return await _context.Products.CountAsync( x => x.CompanyId == id);
