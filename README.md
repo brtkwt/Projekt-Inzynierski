@@ -10,4 +10,6 @@
 
 ![6](https://github.com/brtkwt/Projekt-Inzynierski/assets/103075154/adfabcd2-7b9b-4f99-813e-1294e4413da9)
 
+![8](https://github.com/brtkwt/Projekt-Inzynierski/assets/103075154/2251b1cf-6554-4b00-94b0-493ae810a029)
+
 ![7](https://github.com/brtkwt/Projekt-Inzynierski/assets/103075154/77685dd2-4e89-4188-ab7b-135659bdfc10)
