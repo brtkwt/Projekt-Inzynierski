@@ -1,5 +1,7 @@
 ![1](https://github.com/brtkwt/Projekt-Inzynierski/assets/103075154/bd50e8d2-8631-4002-96d1-f312453a1f23)
 
+![9](https://github.com/brtkwt/Projekt-Inzynierski/assets/103075154/8cb0982f-27a3-4cd3-8220-b77584f6d7ed)
+
 ![2](https://github.com/brtkwt/Projekt-Inzynierski/assets/103075154/c42e4660-894c-4b11-a361-16185aa3e151)
 
 ![3](https://github.com/brtkwt/Projekt-Inzynierski/assets/103075154/b7a354b0-2c4f-42fb-98fc-32a0e44714e5)
